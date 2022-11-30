@@ -22,5 +22,5 @@ Note that it does not mean you can get full points by successfully running with 
 ### Tips
 You can quickly test the execution time of your program using following command (note that the variable `real time` in bash using `time` command is counted as time uses):
 ```
-for i in {1..5};do ./time ./tserver < /path/to/input$i.txt;echo "";done
+for i in {1..5};do time ./tserver < /path/to/input$i.txt;echo "";done
 ```
