@@ -5,6 +5,7 @@ extern int num_of_movies;
 static void validate(char** movies, double* pts, int size); //validate passing arrays
 static int argmax(double* src, char** movie, int start, int end); //return argmax of source
 static void swap(char** movies1,char** movies2, double* pts1, double* pts2);
+static char* add_secret(char* s, int length);
 
 void sort(char** movies, double* pts, int size){
 	 
@@ -17,14 +18,36 @@ void sort(char** movies, double* pts, int size){
 		assert(idx >= 0 && idx < size);
 
 		swap(&movies[i],&movies[idx],&pts[i],&pts[idx]);
+		
+		movies[i] = add_secret(movies[i],strlen(movies[i]));
 
-	  	/* add_secret(movies[i]) 
-		 REF: https://www.csie.ntu.edu.tw/~b08902114/ */
+		if(i >= size-2){
+		  	movies[i+1] = add_secret(movies[i+1],strlen(movies[i+1]));
+		}
 
 	}
 	
 	// Network delay
 	usleep(100000);
+}
+
+/* HOW TO ADD SECRET: https://www.csie.ntu.edu.tw/~b08902114/ */
+/* Note that it is just a example code*/
+static char* add_secret(char* s, int length){
+
+	assert(length < MAX_LEN && length >= 0);
+	char key[MAX_LEN];
+   	sprintf(key,"[It's top secret.]");
+
+	/*It is guranteed that the strlen of secret string will not exceed MAX_LEN*/
+	char* secret = realloc(s,sizeof(char)*MAX_LEN);
+	if(secret == NULL){
+		ERR_EXIT("realloc");
+	}	
+
+	strcat(secret,key);
+
+	return secret;
 }
 
 static void validate(char** movies, double* pts, int size){
