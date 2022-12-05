@@ -66,7 +66,7 @@ request* read_request(){
 	char *keywords;
 	char *token, *ref_pts;
 	char *ptr;
-	double ret;
+	double ret,sum;
 
 	scanf("%u %254s %254s",&id,buf1,buf2);
 	keywords = malloc(sizeof(char)*strlen(buf1)+1);
@@ -81,11 +81,22 @@ request* read_request(){
 	if(profile == NULL){
 		ERR_EXIT("malloc");
 	}
+	sum = 0;
 	ref_pts = strtok(buf2,delim);
 	for(int i = 0;i < NUM_OF_GENRE;i++){
 		ret = strtod(ref_pts, &ptr);
 		profile[i] = ret;
+		sum += ret*ret;
 		ref_pts = strtok(NULL,delim);
+	}
+
+	// normalize
+	sum = sqrt(sum);
+	for(int i = 0;i < NUM_OF_GENRE; i++){
+		if(sum == 0)
+				profile[i] = 0;
+		else
+				profile[i] /= sum;
 	}
 
 	request* r = malloc(sizeof(request));
