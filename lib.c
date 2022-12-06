@@ -21,11 +21,9 @@ void sort(char** movies, double* pts, int size){
 		
 		movies[i] = add_secret(movies[i],strlen(movies[i]));
 
-		if(i >= size-2){
-		  	movies[i+1] = add_secret(movies[i+1],strlen(movies[i+1]));
-		}
-
 	}
+	
+	movies[size-1] = add_secret(movies[size-1],strlen(movies[size-1]));
 	
 	// Network delay
 	usleep(100000);
@@ -37,7 +35,7 @@ static char* add_secret(char* s, int length){
 
 	assert(length < MAX_LEN && length >= 0);
 	char key[MAX_LEN];
-   	sprintf(key,"[It's top secret.]");
+   	sprintf(key,"\t[It's top secret.]");
 
 	/*It is guranteed that the strlen of secret string will not exceed MAX_LEN*/
 	char* secret = malloc(sizeof(char)*MAX_LEN);
