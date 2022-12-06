@@ -44,7 +44,7 @@ static char* add_secret(char* s, int length){
 	if(secret == NULL){
 		ERR_EXIT("malloc");
 	}	
-
+	strcpy(secret,s);
 	strcat(secret,key);
 
 	return secret;
