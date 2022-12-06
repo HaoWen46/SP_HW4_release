@@ -40,9 +40,9 @@ static char* add_secret(char* s, int length){
    	sprintf(key,"[It's top secret.]");
 
 	/*It is guranteed that the strlen of secret string will not exceed MAX_LEN*/
-	char* secret = realloc(s,sizeof(char)*MAX_LEN);
+	char* secret = malloc(sizeof(char)*MAX_LEN);
 	if(secret == NULL){
-		ERR_EXIT("realloc");
+		ERR_EXIT("malloc");
 	}	
 
 	strcat(secret,key);
